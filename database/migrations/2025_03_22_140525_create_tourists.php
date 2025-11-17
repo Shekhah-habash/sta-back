@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('tourists', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50)->unique();
-            $table->date('DOB', 50)->unique();
-            $table->ENUM('gender', ['M' , 'F'])->unique();
+            $table->string('name', 50);
+            $table->date('DOB', 50);
+            $table->ENUM('gender', ['M' , 'F']);
             $table->foreignId('user_id')->unique()->constrained();
             $table->foreignId('country_id')->constrained();
 
