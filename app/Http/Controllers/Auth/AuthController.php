@@ -14,12 +14,17 @@ class AuthController extends Controller
 {
     function register(Request $request)
     {
+        // return $request;
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|max:100',
             'password' => 'required|min:6',
             'type' => 'required|in:tourist,provider',
             'name' => 'required|max:50',
-        ]);
+            'DOB' => 'required_if:type,tourist|nullable|date',
+            'gender' => 'required_if:type,tourist|nullable|in:M,F',
+            'country_id' => 'required_if:type,tourist|nullable|exists:countries,id',
+            'description' => 'required_if:type,provider|nullable|max:500',
+        ]);        
 
         $type = $request->type; 
         $name = $request->name; 

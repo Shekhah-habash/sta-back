@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('comment', 200)->nullable();
             $table->enum('type', ['positive' ,'negative' , 'neutral' ]);
 
-            $table->foreignId('provider_id')->constrained();
+            $table->foreignId('service_id')->constrained();
             $table->foreignId('tourist_id')->constrained();
             $table->timestamps();
         });
