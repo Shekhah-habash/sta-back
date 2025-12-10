@@ -11,11 +11,12 @@ class PreferenceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $preferences = Preference::all();
+    public function index(Request $request){
+        
+        $type = $request->type;
+        $preferences = Preference::where('type' , $type)->get();
 
-        return apiSuccess('كافة التفضيلات ', $preferences);
+        return apiSuccess(  "كافة " . trans_choice("sta.$type",2) , $preferences);
 
     }
 

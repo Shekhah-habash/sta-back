@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('notification_user', function (Blueprint $table) {
             $table->id();
             $table->enum('status' , ['new' , 'read']);
+            $table->timestamp('read_at')->nullable();
             $table->foreignId('tourist_id')->constrained();
             $table->foreignId('notification_id')->constrained();
             $table->timestamps();
