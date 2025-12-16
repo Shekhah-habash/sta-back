@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
+
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PreferenceController;
-use App\Http\Controllers\Auth\AuthController;
-use App\Models\Preference;
+
+use App\Http\Controllers\Provider\ServiceController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
@@ -19,10 +23,20 @@ Route::controller(AuthController::class)->group(function () {
 });
 Route::get('/countries', [\App\Http\Controllers\Tourist\Settings::class, 'countries']);
 
-Route::middleware('auth:sanctum')->group(function () {
+// Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
+Route::prefix('admin')->group(function () {
     Route::apiResource('/preferences', PreferenceController::class);
     Route::apiResource('/categories', CategoryController::class);
+    
+    Route::get('/providers' , [AdminController::class , 'getProviders']);
+    Route::patch('/providers/{provider}' , [AdminController::class , 'toggleState']);
 });
+
+Route::prefix('provider')->group(function () {
+    Route::apiResource('/services', ServiceController::class);
+    // Route::apiResource('/categories', CategoryController::class);
+});
+
 
 Route::fallback(function () {
     return apiError("path is incorrect", [

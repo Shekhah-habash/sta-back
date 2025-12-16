@@ -16,7 +16,7 @@ class AuthController extends Controller
     {
         // return $request;
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|max:100',
+            'email' => 'required|email|unique:users|max:100',
             'password' => 'required|min:6',
             'type' => 'required|in:tourist,provider',
             'name' => 'required|max:50',
@@ -24,6 +24,9 @@ class AuthController extends Controller
             'gender' => 'required_if:type,tourist|nullable|in:M,F',
             'country_id' => 'required_if:type,tourist|nullable|exists:countries,id',
             'description' => 'required_if:type,provider|nullable|max:500',
+            'image_id' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'latitude' => 'sometimes|numeric',
+            'longitude' => 'sometimes|numeric',
         ]);        
 
         $type = $request->type; 
@@ -39,7 +42,7 @@ class AuthController extends Controller
             'type' => $type,
         ]);
 
-        $token = $user->createToken("mobile")->plainTextToken;
+        $token = $user->createToken("Api token")->plainTextToken;
 
         if ($type == 'tourist') {
             $user->tourist()->create([
@@ -49,11 +52,18 @@ class AuthController extends Controller
                 'country_id' => $request->country_id,
             ]);
             
-        } else if ($type == 'provider') {
-            $user->provider()->create([
+        } else if ($type == 'provider') {            
+            $provider = [
                 'name' => $request->name,
                 'description' => $request->description,
-            ]);
+            ];
+            if ($request->hasFile('image_id')) {
+               $provider['image_id'] =  saveImg('provider', $request->file('image_id'));
+            }
+            if ($request->latitude && $request->longitude) {
+                $provider['coordinates'] =  "POINT({$request->longitude} {$request->latitude})";
+            }
+            $user->provider()->create($provider);
         }
         return apiSuccess("Account created successfuly",  compact('type' , 'name' ,'token' ), Response::HTTP_CREATED);
     }
@@ -82,9 +92,9 @@ class AuthController extends Controller
         return apiError()::failed("invalid credentials");
     }
 
-    function logout()
+    function logout(Request $request)
     {
-        $user = Auth::user();
+        $user = $request->user();
         $user->currentAccessToken()->delete();
         return apiSuccess("logout ok");
     }

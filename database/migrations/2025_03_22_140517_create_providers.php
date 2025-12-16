@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -15,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100)->index()->nullable();
             $table->string('description', 400)->nullable();;
-            
+        
             $table->boolean('accepted')->default(false);
             
             $table->foreignId('user_id')->unique()->constrained();
@@ -23,6 +24,7 @@ return new class extends Migration
             
             $table->timestamps();
         });
+        DB::statement("ALTER TABLE providers ADD location POINT");
     }
 
     /**
