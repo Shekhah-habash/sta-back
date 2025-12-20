@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Provider extends Model
 {
@@ -22,7 +23,9 @@ class Provider extends Model
     {
         return $this->belongsTo(User::class);
     }
-
+    public function image()
+    {
+        return $this->belongsTo(Image::class);
+    }
     
 }
-

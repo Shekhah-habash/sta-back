@@ -24,8 +24,7 @@ class AuthController extends Controller
             'type' => 'required|in:tourist,provider',
             'name' => 'required|max:50',
             'DOB' => 'required_if:type,tourist|nullable|date',
-            'gender' => 'required_if:type,tourist|nullable|in:M,F',
-            // 'country_id' => 'required_if:type,tourist|exists:countries,id',
+            'gender' => 'required_if:type,tourist|nullable|in:M,F',            
             'country_id' => 'required_if:type,tourist|integer|exists:countries,id',
             'description' => 'required_if:type,provider|max:500',
             'image_id' => 'required_if:type,provider|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -61,8 +60,12 @@ class AuthController extends Controller
                 'description' => $request->description,
                 'image_id' =>  saveImg('provider', $request->file('image_id')),
                 // 'location' => "POINT({$request->longitude} {$request->latitude})",
-                // 'location' => DB::raw("POINT({$request->longitude}, {$request->latitude})"),
+                
+                'location' => DB::raw("POINT({$request->longitude}, {$request->latitude})"),
+                // 'location' => "ST_GeomFromText('POINT(30.1234 31.5678)')",
+                // 'location' => "ST_PointFromText('POINT({$request->longitude} {$request->latitude})')",
                 'location' => DB::raw("ST_PointFromText('POINT({$request->longitude} {$request->latitude})')"),
+                // 'location' => DB::raw("ST_GeomFromText('POINT({$request->longitude} {$request->latitude})')"),
             ];
             
             $user->provider()->create($provider);

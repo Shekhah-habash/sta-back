@@ -25,6 +25,10 @@ return new class extends Migration
             $table->timestamps();
         });
         DB::statement("ALTER TABLE providers ADD location POINT");
+        // Add spatial index to the location column for faster geospatial queries
+        Schema::table('providers', function (Blueprint $table) {
+            $table->spatialIndex('location');
+        });
     }
 
     /**

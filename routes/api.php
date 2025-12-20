@@ -30,6 +30,8 @@ Route::prefix('admin')->group(function () {
     
     Route::get('/providers' , [AdminController::class , 'getProviders']);
     Route::patch('/providers/{provider}' , [AdminController::class , 'toggleState']);
+
+    Route::get('/totals' , [AdminController::class , 'totals']);
 });
 
 Route::prefix('provider')->group(function () {
