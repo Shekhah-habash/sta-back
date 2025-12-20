@@ -15,6 +15,7 @@ class Provider extends Model
         'accepted',
         'user_id',
         'image_id',
+        'location'
     ];
 
     public function user()

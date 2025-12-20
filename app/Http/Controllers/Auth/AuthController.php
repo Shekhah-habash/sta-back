@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -14,19 +15,22 @@ class AuthController extends Controller
 {
     function register(Request $request)
     {
+        // return apiSuccess("Account created successfuly",  compact('type' , 'name' ,'token' ), Response::HTTP_CREATED);
+
         // return $request;
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users|max:100',
-            'password' => 'required|min:6',
+            'password' => 'required|confirmed|min:6',
             'type' => 'required|in:tourist,provider',
             'name' => 'required|max:50',
             'DOB' => 'required_if:type,tourist|nullable|date',
             'gender' => 'required_if:type,tourist|nullable|in:M,F',
-            'country_id' => 'required_if:type,tourist|nullable|exists:countries,id',
-            'description' => 'required_if:type,provider|nullable|max:500',
-            'image_id' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'latitude' => 'sometimes|numeric',
-            'longitude' => 'sometimes|numeric',
+            // 'country_id' => 'required_if:type,tourist|exists:countries,id',
+            'country_id' => 'required_if:type,tourist|integer|exists:countries,id',
+            'description' => 'required_if:type,provider|max:500',
+            'image_id' => 'required_if:type,provider|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'latitude' => 'required_if:type,provider|numeric',
+            'longitude' => 'required_if:type,provider|numeric',
         ]);        
 
         $type = $request->type; 
@@ -38,7 +42,6 @@ class AuthController extends Controller
         $user = User::create([
             'email' => $request->email,
             'password' => $request->password,
-            'name' => $name,
             'type' => $type,
         ]);
 
@@ -56,13 +59,12 @@ class AuthController extends Controller
             $provider = [
                 'name' => $request->name,
                 'description' => $request->description,
+                'image_id' =>  saveImg('provider', $request->file('image_id')),
+                // 'location' => "POINT({$request->longitude} {$request->latitude})",
+                // 'location' => DB::raw("POINT({$request->longitude}, {$request->latitude})"),
+                'location' => DB::raw("ST_PointFromText('POINT({$request->longitude} {$request->latitude})')"),
             ];
-            if ($request->hasFile('image_id')) {
-               $provider['image_id'] =  saveImg('provider', $request->file('image_id'));
-            }
-            if ($request->latitude && $request->longitude) {
-                $provider['coordinates'] =  "POINT({$request->longitude} {$request->latitude})";
-            }
+            
             $user->provider()->create($provider);
         }
         return apiSuccess("Account created successfuly",  compact('type' , 'name' ,'token' ), Response::HTTP_CREATED);
