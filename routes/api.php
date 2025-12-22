@@ -23,8 +23,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 Route::get('/countries', [\App\Http\Controllers\Tourist\Settings::class, 'countries']);
 
-// Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
-Route::prefix('admin')->group(function () {
+Route::middleware(['auth:sanctum' , 'user-type:admin'])->prefix('admin')->group(function () {
     Route::apiResource('/preferences', PreferenceController::class);
     Route::apiResource('/categories', CategoryController::class);
     
@@ -34,9 +33,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/totals' , [AdminController::class , 'totals']);
 });
 
-Route::prefix('provider')->group(function () {
+Route::middleware(['auth:sanctum' , 'user-type:provider'])->prefix('provider')->group(function () {
     Route::apiResource('/services', ServiceController::class);
-    // Route::apiResource('/categories', CategoryController::class);
 });
 
 
