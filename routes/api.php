@@ -5,7 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PreferenceController;
-
+use App\Http\Controllers\provider\NotificationController;
 use App\Http\Controllers\Provider\ServiceController;
 use App\Http\Controllers\Tourist\SettingController;
 use Illuminate\Http\Request;
@@ -29,13 +29,16 @@ Route::middleware(['auth:sanctum', 'user-type:admin'])->prefix('admin')->group(f
     Route::apiResource('/categories', CategoryController::class);
 
     Route::get('/providers', [AdminController::class, 'getProviders']);
-    Route::patch('/providers/{provider}', [AdminController::class, 'toggleState']);
+    Route::patch('/accept-provider/{provider}', [AdminController::class, 'acceptProvider']);
 
     Route::get('/totals', [AdminController::class, 'totals']);
 });
 
 Route::middleware(['auth:sanctum', 'user-type:provider'])->prefix('provider')->group(function () {
     Route::apiResource('/services', ServiceController::class);
+    Route::get('/notifications', [NotificationController::class , 'index']);
+    Route::get('/notifications/unread-count', [NotificationController::class , 'unreadCount']);
+    Route::patch('/notifications/mark-as-read', [NotificationController::class , 'markAsRead']);
 });
 
 

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notification_user', function (Blueprint $table) {
-            $table->id();
-            $table->enum('status' , ['new' , 'read']);
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('type');
+            $table->morphs('notifiable');
+            $table->text('data');
             $table->timestamp('read_at')->nullable();
-            $table->foreignId('tourist_id')->constrained();
-            $table->foreignId('notification_id')->constrained();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notification_user');
+        Schema::dropIfExists('notifications');
     }
 };

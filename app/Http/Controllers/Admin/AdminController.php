@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProviderResource;
 use App\Models\Provider;
+use App\Notifications\ProviderAccountAccepted;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -24,16 +25,18 @@ class AdminController extends Controller
             ST_X(location) AS lng
         ")
             ->when($accepted, function ($q) use ($accepted) {
-                return $q->whereAccepted($accepted);
+                $accepted = $accepted == "yes" ? 1 : ($accepted == "no" ? 0 : null);
+                return $q->where('accepted',  $accepted);
             })->get();
         //   return $providers;              
         return apiSuccess('مزودي الخدمة ',  ProviderResource::collection($providers));
     }
 
-    public function toggleState(Provider $provider)
+    public function acceptProvider(Provider $provider)
     {
-        $provider->update(['accepted' => ! $provider->accepted]);
-        return apiSuccess("تم تعديل مزود الخدمة بنجاح", $provider);
+        $provider->update(['accepted' => 1]);
+        $provider->user->notify(new ProviderAccountAccepted());
+        return apiSuccess("تم  قبول مزودالخدمة بنجاح");
     }
 
     public function totals()

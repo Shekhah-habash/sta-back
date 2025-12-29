@@ -91,7 +91,7 @@ class AuthController extends Controller
             $type = $user->type ; 
 
             $name = $type == 'provider'? $user->provider->name : ($type == 'tourist'? $user->tourist->name : 'admin' ) ; 
-            $token = $user->createToken("mobile")->plainTextToken;
+            $token = $user->createToken("web api")->plainTextToken;
             return apiSuccess("Account login successfuly", compact('type' , 'name' ,'token' ), Response::HTTP_CREATED);
         }
         return apiError()::failed("invalid credentials");
