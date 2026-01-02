@@ -64,7 +64,7 @@ class AuthController extends Controller
                 'location' => DB::raw("POINT({$request->longitude}, {$request->latitude})"),
                 // 'location' => "ST_GeomFromText('POINT(30.1234 31.5678)')",
                 // 'location' => "ST_PointFromText('POINT({$request->longitude} {$request->latitude})')",
-                'location' => DB::raw("ST_PointFromText('POINT({$request->longitude} {$request->latitude})')"),
+                // 'location' => DB::raw("ST_PointFromText('POINT({$request->longitude} {$request->latitude})')"),
                 // 'location' => DB::raw("ST_GeomFromText('POINT({$request->longitude} {$request->latitude})')"),
             ];
             

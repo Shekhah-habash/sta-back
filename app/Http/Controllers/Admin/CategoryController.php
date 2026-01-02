@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryTreeResource;
 
 class CategoryController extends Controller
 {
@@ -16,10 +17,9 @@ class CategoryController extends Controller
         $categories = Category::all();
 
         return apiSuccess('كافة الخدمات ', $categories);
-
     }
 
-    
+
     /**
      * Store a newly created resource in storage.
      */
@@ -29,9 +29,9 @@ class CategoryController extends Controller
             'name' => 'required|max:50',
         ]);
         $category = Category::create($validated);
-        return apiSuccess('تم إضافة الخدمة بنجاح' , $category);
+        return apiSuccess('تم إضافة الخدمة بنجاح', $category);
     }
-        
+
 
     /**
      * Update the specified resource in storage.
@@ -42,8 +42,7 @@ class CategoryController extends Controller
             'name' => 'required|max:50',
         ]);
         $category->update($validated);
-        return apiSuccess('تم تعديل الخدمة بنجاح' , $category);
-
+        return apiSuccess('تم تعديل الخدمة بنجاح', $category);
     }
 
     /**
@@ -53,5 +52,15 @@ class CategoryController extends Controller
     {
         $category->delete();
         return apiSuccess('تم حذف الخدمة بنجاح');
+    }
+
+    public function tree()
+    {
+        $categories = Category::whereNull('category_id')
+            ->with(['childrenRecursive', 'providers'])
+            ->get();
+
+
+        return apiSuccess("categories tree", CategoryTreeResource::collection($categories));
     }
 }

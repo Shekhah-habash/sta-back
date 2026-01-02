@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50)->unique();            
             $table->enum('type' , ['favor', 'medical' ]);
+            $table->foreignId('category_id')->constrained();
             $table->timestamps();
         });
     }

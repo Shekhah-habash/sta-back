@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('categories' ,  function(Blueprint $table){
-            $table->id();
-            $table->string('name', 50)->unique();
-            $table->foreignId('category_id')->nullable()->constrained();
+        Schema::create('profiles', function (Blueprint $table) {
+            $table->id();            
+            $table->foreignId('preference_id')->constrained()->onDelete('cascade');
+            $table->foreignId('tourist_id')->constrained()->onDelete('cascade');
+            $table->enum('type' , ['normal' , 'health'])->default('normal');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::drop('categories');
+        Schema::dropIfExists('profiles');
     }
 };

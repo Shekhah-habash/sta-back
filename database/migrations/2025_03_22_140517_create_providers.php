@@ -14,17 +14,19 @@ return new class extends Migration
     {
         Schema::create('providers', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->index()->nullable();
+            $table->string('name', 100)->index();
+            $table->string('title', 100)->nullable();
             $table->string('description', 400)->nullable();;
         
             $table->boolean('accepted')->default(false);
             
+            $table->foreignId('category_id')->unique()->constrained();
             $table->foreignId('user_id')->unique()->constrained();
             $table->foreignId('image_id')->nullable()->constrained()->onDelete('set null');;
             
             $table->timestamps();
         });
-        DB::statement("ALTER TABLE providers ADD location POINT");
+        DB::statement("ALTER TABLE providers ADD location POINT after accepted");
         // Add spatial index to the location column for faster geospatial queries
         // Schema::table('providers', function (Blueprint $table) {
         //     $table->spatialIndex('location');

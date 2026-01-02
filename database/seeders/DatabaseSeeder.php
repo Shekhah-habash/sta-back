@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Preference;
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -23,7 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call(CountrySeeder::class);
-        $this->call(UserSeeder::class);
-        $this->call([CategorySeeder::class , PreferenceSeeder::class]);
+        $this->call(CategorySeeder::class);
+        // $this->call([CategoriesAndPreferencesSeeder::class ]);
     }
 }

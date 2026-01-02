@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ServiceType;
 use Illuminate\Database\Seeder;
 
 class CategorySeeder extends Seeder
@@ -11,20 +11,126 @@ class CategorySeeder extends Seeder
     /**
      * Run the database seeds.
      */
+
+
     public function run(): void
-    {     
+    {
         $categories = [
-            ['id'=> 1 ,'name' => 'معالم دينية' ,],
-            ['id'=> 2 ,'name' => 'معالم أثرية' ,],
-            ['id'=> 3 ,'name' => 'معالم ثقافية' , ],
-            ['id'=> 4 ,'name' => 'معالم طبيعة' , ],
-            ['id'=> 6 ,'name' => 'طبية' , ],
-            ['id'=> 8 ,'name' => 'اسواق' , ],
-            ['id'=> 9 ,'name' => 'مطاعم' ,],
-        
-            ['id'=> 10 ,'name' => 'استراحات' ],
-           
+            [
+                'name' => 'الرحلات',
+                'children' => [
+                    [
+                        'name' => 'رحلات ترفيهية',
+                        'children' => [
+                            ['name' => 'التخييم',],
+                            ['name' => 'الذهاب إلى الشاطئ',],
+                            ['name' => 'المشي في الطبيعة',],
+                            ['name' => 'ركوب الدراجة',],
+                            ['name' => 'رحلات السفاري',],
+                            ['name' => 'زيارة المعالم السياحية',],
+                            ['name' => 'الرحلات البحرية',],
+                            ['name' => 'الذهاب إلى المنتزهات',],
+                            ['name' => 'تجربة الطعام المحلي',],
+                            ['name' => 'الذهاب إلى السينما',],
+                            ['name' => 'حضور الحفلات الموسيقية',],
+                            ['name' => 'زيارة المتاحف',],
+                            ['name' => 'الذهاب إلى الحدائق العامة',],
+                            ['name' => 'الرياضات المائية',],
+                            ['name' => 'الرحلات الثقافية',],
+                            ['name' => 'الاسترخاء في المنتجعات الصحية',],
+                            ['name' => 'التزلج على الماء',],
+                            ['name' => 'الذهاب إلى المعارض الفنية'],
+                        ]
+                    ],
+                    [
+                        'name' => 'المعالم',
+                        'children' => [
+                            ['name' => 'معالم دينية'],
+                            ['name' => 'معالم أثرية'],
+                            ['name' => 'معالم ثقافية'],
+                        ],
+                    ],
+                    [
+                        'name' => 'تسوق',
+                        'children' => [
+                            ['name' => 'مولات'],
+                            ['name' => 'انتيكا'],
+                            ['name' => 'ألبسة'],
+                            ['name' => 'مجوهرات'],
+                            ['name' => 'عطور'],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                'name' => 'الإقامة',
+                'children' => [
+                    [
+                        'name' => 'فنادق',
+                        'children' => [
+                            ['name' => 'حجز فندق خمس نجوم',],
+                            ['name' => 'حجز فندق اقتصادي',],
+                        ]
+                    ],
+                    ['name' => 'استراحات'],
+                ]
+            ],
+            [
+                'name' => 'علاج',
+                'children' => [
+
+                    ['name' => 'فحص طبي شامل'],
+                    ['name' => 'علاج طبيعي'],
+                    ['name' => 'استشارة نفسية'],
+                    ['name' => 'علاج الأسنان'],
+                    ['name' => 'فحص دم'],
+                    ['name' => 'فحص سكر'],
+                    ['name' => 'فحص ضغط الدم'],
+                    ['name' => 'استشارة تغذية'],
+                    ['name' => 'علاج بدني'],
+                    ['name' => 'استشارة جلدية'],
+                    ['name' => 'علاج العقم'],
+                    ['name' => 'فحص نظر'],
+                    ['name' => 'استشارة قلبية'],
+                    ['name' => 'علاج الربو'],
+                    ['name' => 'استشارة طبية عن الأمراض المزمنة'],
+                    ['name' => 'استشارة طبية عامة'],
+                    ['name' => 'فحص سرطان '],
+                    ['name' => 'استشارة طبية للنساء'],
+                    ['name' => 'حساسية الأنف'],
+                    ['name' => 'ارتفاع ضغط الدم'],
+                    ['name' => 'سكري النوع الثاني'],
+                    ['name' => 'أمراض القلب'],
+                    ['name' => 'الربو التحسسي'],
+                    ['name' => 'التهاب المفاصل'],
+                    ['name' => 'أمراض الكلى'],
+                    ['name' => 'الصداع النصفي'],
+                    ['name' => 'التهاب الأمعاء'],
+                    ['name' => 'مرض السكري'],
+                ],
+            ],
+            [
+                'name' => 'خدمات النقل',
+                'children' => [
+                    ['name' => 'سيارات الأجرة'],
+                    ['name' => 'حافلات النقل'],
+                    ['name' => 'تأجير سيارات'],
+                    ['name' => 'حافلات النقل العام'],
+                    ['name' => 'توصيل من المطار'],
+                ],
+            ],
         ];
-        Category::insert($categories);
+
+        $this->insertCategories($categories);
+    }
+    private function insertCategories(array $categories, $parentId = null)
+    {
+        foreach ($categories as $category) {
+            $newCategory = Category::create(['name' => $category['name'], 'category_id' => $parentId]);
+
+            if (isset($category['children'])) {
+                $this->insertCategories($category['children'], $newCategory->id);
+            }
+        }
     }
 }
