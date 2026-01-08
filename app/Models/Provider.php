@@ -24,9 +24,24 @@ class Provider extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+    
     public function image()
     {
         return $this->belongsTo(Image::class);
     }
+
     
+    public function getLatAttribute()
+    {
+        return DB::raw('ST_Y(location)');
+    }
+
+    public function getLngAttribute()
+    {
+        return DB::raw('ST_X(location)');
+    }
 }

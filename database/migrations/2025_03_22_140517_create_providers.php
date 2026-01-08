@@ -20,7 +20,6 @@ return new class extends Migration
         
             $table->boolean('accepted')->default(false);
             
-            $table->foreignId('category_id')->unique()->constrained();
             $table->foreignId('user_id')->unique()->constrained();
             $table->foreignId('image_id')->nullable()->constrained()->onDelete('set null');;
             

@@ -24,9 +24,13 @@ class AuthController extends Controller
             'type' => 'required|in:tourist,provider',
             'name' => 'required|max:50',
             'DOB' => 'required_if:type,tourist|nullable|date',
-            'gender' => 'required_if:type,tourist|nullable|in:M,F',            
+            'gender' => 'required_if:type,tourist|nullable|in:M,F', 
+
             'country_id' => 'required_if:type,tourist|integer|exists:countries,id',
+            'title' => 'required_if:type,provider|max:100',
             'description' => 'required_if:type,provider|max:500',
+            'categories' => 'required_if:type,provider|array',
+            'categories.*' => 'required_if:type,provider|exists:categories,id',
             'image_id' => 'required_if:type,provider|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'latitude' => 'required_if:type,provider|numeric',
             'longitude' => 'required_if:type,provider|numeric',
@@ -57,18 +61,14 @@ class AuthController extends Controller
         } else if ($type == 'provider') {            
             $provider = [
                 'name' => $request->name,
+                'title' => $request->title,
                 'description' => $request->description,
-                'image_id' =>  saveImg('provider', $request->file('image_id')),
-                // 'location' => "POINT({$request->longitude} {$request->latitude})",
-                
-                'location' => DB::raw("POINT({$request->longitude}, {$request->latitude})"),
-                // 'location' => "ST_GeomFromText('POINT(30.1234 31.5678)')",
-                // 'location' => "ST_PointFromText('POINT({$request->longitude} {$request->latitude})')",
-                // 'location' => DB::raw("ST_PointFromText('POINT({$request->longitude} {$request->latitude})')"),
-                // 'location' => DB::raw("ST_GeomFromText('POINT({$request->longitude} {$request->latitude})')"),
+
+                'image_id' =>  saveImg('provider', $request->file('image_id')),                
+                'location' => DB::raw("POINT({$request->longitude}, {$request->latitude})"),                
             ];
-            
-            $user->provider()->create($provider);
+                        
+            $user->provider()->create($provider)->categories()->attach($request->categories);;
         }
         return apiSuccess("Account created successfuly",  compact('type' , 'name' ,'token' ), Response::HTTP_CREATED);
     }
@@ -81,7 +81,7 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails())
-            return apiError("invalid inputs", $validator->messages(),  Response::HTTP_UNPROCESSABLE_ENTITY);
+            return apiValidationError(errors: $validator->messages());
 
         $email = $request->email;
         $password = $request->password;
@@ -94,7 +94,8 @@ class AuthController extends Controller
             $token = $user->createToken("web api")->plainTextToken;
             return apiSuccess("Account login successfuly", compact('type' , 'name' ,'token' ), Response::HTTP_CREATED);
         }
-        return apiError()::failed("invalid credentials");
+        
+        return apiError("بيانات الدخول غير صحيحة");
     }
 
     function logout(Request $request)

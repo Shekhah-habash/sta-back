@@ -60,6 +60,11 @@ class CategoryController extends Controller
             ->with(['childrenRecursive', 'providers'])
             ->get();
 
+            /** العمق 2 */
+        // $categories = Category::whereNull('category_id')
+        //     ->with('children.children')
+        //     ->get();
+        // return ['categories' => $categories];
 
         return apiSuccess("categories tree", CategoryTreeResource::collection($categories));
     }

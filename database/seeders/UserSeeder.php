@@ -60,21 +60,6 @@ class UserSeeder extends Seeder
             'gender' => 'M',
             'user_id' => 3
         ]);
-        /** Provider 2 */
-        User::create([
-            'id' => 4,
-            'email' => 'p@p.com',
-            'password' => '123',
-            'type' => 'provider'
-        ]);
-
-
-        Provider::create([
-            'id' => 1,
-            'name' => 'Provider account',
-            'description' => 'Provider account for test pupose',
-            'accepted' => true, 
-            'user_id' => 4
-        ]);
+        
     }
 }

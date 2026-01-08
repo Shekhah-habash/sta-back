@@ -28,7 +28,7 @@ if (!function_exists('apiNotFound')) {
 }
 
 if (!function_exists('apiValidationError')) {
-    function apiValidationError(string $message = 'Invalid data', $errors = [])
+    function apiValidationError(string $message = 'بيانات غير صحيحة', $errors = [])
     {
         return ApiResponse::validationError($message, $errors);
     }
