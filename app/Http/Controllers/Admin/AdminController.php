@@ -17,13 +17,14 @@ class AdminController extends Controller
         $accepted = $request->accepted;
         $providers = Provider::selectRaw("
             id,
-            name,
+            name,            
             description, 
             accepted,
             image_id,
-            ST_Y(location) AS lat,
+            ST_Y(location) AS lat ,
             ST_X(location) AS lng
         ")
+            ->with('image')
             ->when($accepted, function ($q) use ($accepted) {
                 $accepted = $accepted == "yes" ? 1 : ($accepted == "no" ? 0 : null);
                 return $q->where('accepted',  $accepted);

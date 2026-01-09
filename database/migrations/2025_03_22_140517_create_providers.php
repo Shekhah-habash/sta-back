@@ -15,8 +15,7 @@ return new class extends Migration
         Schema::create('providers', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100)->index();
-            $table->string('title', 100)->nullable();
-            $table->string('description', 400)->nullable();;
+            $table->string('description', 500)->nullable();;
         
             $table->boolean('accepted')->default(false);
             

@@ -26,15 +26,15 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:50',
+            'name' => 'required|string|max:100',
             'identifier' => 'required|string:50',
-            'details' => 'nullable|array',
+            'details' => 'nullable|string|max:255',
         ]);
 
         $data['provider_id'] = $request->user()->provider->id;
 
         $service = Service::create($data);
-        return apiSuccess('تم إضافة الخدمة بنجاح' , ['service' => $service], 201);            
+        return apiSuccess('تم إضافة الخدمة بنجاح' ,  $service);            
     }
         
 
@@ -44,9 +44,9 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         $data = $request->validate([
-            'name' => 'sometimes|string:50',
-            'identifier' => 'sometimes|string:50',
-            'details' => 'sometimes|array:50',
+            'name' => 'required|string|max:100',
+            'identifier' => 'required|string:50',
+            'details' => 'nullable|string|max:255',
         ]);
         
         $service->update($data);

@@ -23,11 +23,11 @@ class AuthController extends Controller
             'password' => 'required|confirmed|min:6',
             'type' => 'required|in:tourist,provider',
             'name' => 'required|max:50',
+            
             'DOB' => 'required_if:type,tourist|nullable|date',
             'gender' => 'required_if:type,tourist|nullable|in:M,F', 
-
             'country_id' => 'required_if:type,tourist|integer|exists:countries,id',
-            'title' => 'required_if:type,provider|max:100',
+            
             'description' => 'required_if:type,provider|max:500',
             'categories' => 'required_if:type,provider|array',
             'categories.*' => 'required_if:type,provider|exists:categories,id',
@@ -61,7 +61,6 @@ class AuthController extends Controller
         } else if ($type == 'provider') {            
             $provider = [
                 'name' => $request->name,
-                'title' => $request->title,
                 'description' => $request->description,
 
                 'image_id' =>  saveImg('provider', $request->file('image_id')),                

@@ -12,7 +12,6 @@ class Provider extends Model
 
     protected $fillable = [
         'name',
-        'title',
         'description',
         'accepted',
         'user_id',
@@ -28,6 +27,10 @@ class Provider extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
     
     public function image()
     {
@@ -35,13 +38,13 @@ class Provider extends Model
     }
 
     
-    public function getLatAttribute()
-    {
-        return DB::raw('ST_Y(location)');
-    }
+    // public function getLatAttribute()
+    // {
+    //     return DB::raw('ST_X(location)');
+    // }
 
-    public function getLngAttribute()
-    {
-        return DB::raw('ST_X(location)');
-    }
+    // public function getLngAttribute()
+    // {
+    //     return DB::raw('ST_Y(location)');
+    // }
 }

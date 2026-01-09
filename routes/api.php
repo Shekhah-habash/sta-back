@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PreferenceController;
 use App\Http\Controllers\provider\NotificationController;
+use App\Http\Controllers\Provider\ProviderController;
 use App\Http\Controllers\Provider\ServiceController;
 use App\Http\Controllers\Tourist\SettingController;
 use Illuminate\Http\Request;
@@ -36,10 +37,15 @@ Route::middleware(['auth:sanctum', 'user-type:admin'])->prefix('admin')->group(f
 });
 
 Route::middleware(['auth:sanctum', 'user-type:provider'])->prefix('provider')->group(function () {
+    Route::get('/getInfo', [ProviderController::class , 'getInfo']);
+    
     Route::apiResource('/services', ServiceController::class);
+    
     Route::get('/notifications', [NotificationController::class , 'index']);
     Route::get('/notifications/unread-count', [NotificationController::class , 'unreadCount']);
     Route::patch('/notifications/mark-as-read', [NotificationController::class , 'markAsRead']);
+
+
 });
 
 
