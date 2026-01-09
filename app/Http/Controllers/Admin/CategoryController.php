@@ -27,6 +27,7 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:50',
+            'category_id' => 'nullable|exists:categories,id'
         ]);
         $category = Category::create($validated);
         return apiSuccess('تم إضافة الخدمة بنجاح', $category);
@@ -60,12 +61,24 @@ class CategoryController extends Controller
             ->with(['childrenRecursive', 'providers'])
             ->get();
 
-            /** العمق 2 */
+            /** العمق مستويين فقط */
         // $categories = Category::whereNull('category_id')
         //     ->with('children.children')
         //     ->get();
         // return ['categories' => $categories];
 
-        return apiSuccess("categories tree", CategoryTreeResource::collection($categories));
+        return apiSuccess("شجرة الخدمات", CategoryTreeResource::collection($categories));
+    }
+    public function topLevel()
+    {
+        $categories = Category::whereNull('category_id')->withCount('childrenRecursive')->get();
+        // return $categories;
+            /** العمق مستويين فقط */
+        // $categories = Category::whereNull('category_id')
+        //     ->with('children.children')
+        //     ->get();
+        // return ['categories' => $categories];
+
+        return apiSuccess("المستوى الأول", $categories);
     }
 }

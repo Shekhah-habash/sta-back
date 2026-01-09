@@ -25,6 +25,7 @@ Route::controller(AuthController::class)->group(function () {
 Route::get('/countries', [SettingController::class, 'countries']);
 Route::get('categories/tree', [CategoryController::class, 'tree']);
 Route::get('/categories', [CategoryController::class , 'index']);
+Route::get('/categories/top-level', [CategoryController::class , 'topLevel']);
 
 Route::middleware(['auth:sanctum', 'user-type:admin'])->prefix('admin')->group(function () {
     Route::apiResource('/preferences', PreferenceController::class);
