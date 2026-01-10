@@ -12,10 +12,12 @@ class Provider extends Model
 
     protected $fillable = [
         'name',
+        'title',
         'description',
         'accepted',
         'user_id',
         'image_id',
+        'province_id',
         'location'
     ];
 

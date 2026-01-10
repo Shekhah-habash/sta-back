@@ -14,11 +14,13 @@ return new class extends Migration
     {
         Schema::create('providers', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->index();
+            $table->string('name', 50)->index();
+            $table->string('title', 100)->index();
             $table->string('description', 500)->nullable();;
         
             $table->boolean('accepted')->default(false);
             
+            $table->foreignId('province_id')->constrained();
             $table->foreignId('user_id')->unique()->constrained();
             $table->foreignId('image_id')->nullable()->constrained()->onDelete('set null');;
             

@@ -69,6 +69,7 @@ class CategoryController extends Controller
 
         return apiSuccess("شجرة الخدمات", CategoryTreeResource::collection($categories));
     }
+    
     public function topLevel()
     {
         $categories = Category::whereNull('category_id')->withCount('childrenRecursive')->get();

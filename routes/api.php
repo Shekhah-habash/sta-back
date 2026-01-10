@@ -17,13 +17,18 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+/** Auth */
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register',   'register');
     Route::post('/login',   'login');
     Route::post('/logout',   'logout')->middleware('auth:sanctum');
 });
+
+/** guest */
 Route::get('/countries', [SettingController::class, 'countries']);
+Route::get('/provinces', [SettingController::class, 'provinces']);
 Route::get('categories/tree', [CategoryController::class, 'tree']);
+
 Route::get('/categories', [CategoryController::class , 'index']);
 Route::get('/categories/top-level', [CategoryController::class , 'topLevel']);
 

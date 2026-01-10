@@ -19,73 +19,83 @@ class ProviderSeeder extends Seeder
         $providers = [
             [
                 'name' => 'الرونق للرحلات',
-                'description' => ' أجمل الرحلات إلى الأماكن والمعالم الأثرية',
+                'title' => ' أجمل الرحلات إلى الأماكن والمعالم الأثرية',
                 'email' => 'ahmed@example.com',
-                'category_id' => $categories->where('name', 'معالم أثرية')->first()->id, // تعيين فئة صيانة
+                'category_id' => $categories->where('name', 'معالم أثرية')->first()->id, 
                 'location' => DB::raw("POINT(33.5138, 36.2765)"), // حلب
+                'province_id' => 2,
             ],
             [
                 'name' => 'مطعم دمشق',
-                'description' => 'أطيب وأشهى المأكولات الشرقية',
+                'title' => 'أطيب وأشهى المأكولات الشرقية',
                 'email' => 'sara@example.com',
-                'category_id' => $categories->where('name', 'مطاعم')->first()->id, // تعيين فئة تنظيف
+                'category_id' => $categories->where('name', 'مطاعم')->first()->id, 
                 'location' => DB::raw("POINT(37.1612, 33.1613)"), // دمشق
+                'province_id' => 1,
             ],
             [
                 'name' => 'مركز الشفاء',
-                'description' => 'أسعار اقتصادية، جودة عالية أحدث الأجهزة مع أفضل الخبراء ',
+                'title' => 'أسعار اقتصادية، جودة عالية أحدث الأجهزة مع أفضل الخبراء ',
                 'email' => 'mohamed@example.com',
-                'category_id' => $categories->where('name', 'خدمات علاجية')->first()->id, // تعيين فئة حدادة
+                'category_id' => $categories->where('name', 'خدمات علاجية')->first()->id, 
                 'location' => DB::raw("POINT(37.1343, 36.2021)"), // حمص
+                'province_id' => 14,
             ],
             [
                 'name' => 'الرونق للتجميل',
-                'description' => 'وصفات عربية لجمال دائم',
+                'title' => 'وصفات عربية لجمال دائم',
                 'email' => 'ali@example.com',
-                'category_id' => $categories->where('name', 'تجميل')->first()->id, // تعيين فئة كهرباء
+                'category_id' => $categories->where('name', 'تجميل')->first()->id, 
                 'location' => DB::raw("POINT(36.6341, 35.9294)"), // إدلب
+                'province_id' => 9,
             ],
             [
                 'name' => 'عيادة الحياة الجديدة',
-                'description' => 'عيادة الحياة الجديدة - خطواتك نحو الأمومة.',
+                'title' => 'عيادة الحياة الجديدة - خطواتك نحو الأمومة.',
                 'email' => 'fatima@example.com',
-                'category_id' => $categories->where('name', 'علاج العقم')->first()->id, // تعيين فئة تجميل
+                'category_id' => $categories->where('name', 'علاج العقم')->first()->id, 
                 'location' => DB::raw("POINT(36.7256, 35.7644)"), // دير الزور
+                'province_id' => 13,
             ],
             [
                 'name' => 'يوسف العبد الله',
-                'description' => 'افخر السيارات ',
+                'title' => 'افخر السيارات ',
                 'email' => 'youssef@example.com',
-                'category_id' => $categories->where('name', 'خدمات النقل')->first()->id, // تعيين فئة نقل
+                'category_id' => $categories->where('name', 'خدمات النقل')->first()->id, 
                 'location' => DB::raw("POINT(37.2915, 36.0937)"), // الرقة
+                'province_id' => 12,
             ],
             [
                 'name' => 'مول الأثريات العريقة',
-                'description' => 'حي التراث.',
+                'title' => 'حي التراث.',
                 'email' => 'aisha@example.com',
-                'category_id' => $categories->where('name', 'تسوق')->first()->id, // تعيين فئة طبخ
+                'category_id' => $categories->where('name', 'تسوق')->first()->id, 
                 'location' => DB::raw("POINT(37.3757, 36.2986)"), // حماة
+                'province_id' => 10,
             ],
             [
                 'name' => 'فندق الفصول الأربعة',
-                'description' => 'في قلب دمشق الساحرة.',
+                'title' => 'في قلب دمشق الساحرة.',
                 'email' => 'p@p.com',
-                'category_id' => $categories->where('name', 'فنادق')->first()->id, // تعيين فئة تصميم
+                'category_id' => $categories->where('name', 'فنادق')->first()->id, 
                 'location' => DB::raw("POINT(36.6667, 35.8333)"), // السويداء
+                'province_id' => 5,
             ],
             [
                 'name' => 'الذكريات',
-                'description' => 'صور تحكي قصصاً... مع مونتاج مدهش.',
+                'title' => 'صور تحكي قصصاً... مع مونتاج مدهش.',
                 'email' => 'hala@example.com',
-                'category_id' => $categories->where('name', 'خدمات تصوير')->first()->id, // تعيين فئة تصوير
+                'category_id' => $categories->where('name', 'خدمات تصوير')->first()->id, 
                 'location' => DB::raw("POINT(36.7500, 35.8000)"), // طرطوس
+                'province_id' => 8,
             ],
             [
                 'name' => 'مشفى الأمل',
-                'description' => 'أحدث التقنيات والخبرات.',
+                'title' => 'أحدث التقنيات والخبرات.',
                 'email' => 'karim@example.com',
-                'category_id' => $categories->where('name', 'خدمات علاجية')->first()->id, // تعيين فئة صيانة سيارات
+                'category_id' => $categories->where('name', 'خدمات علاجية')->first()->id, 
                 'location' => DB::raw("POINT(37.1000, 36.2000)"), // اللاذقية
+                'province_id' => 7,
             ],
         ];
 
@@ -100,9 +110,10 @@ class ProviderSeeder extends Seeder
             // إنشاء مزود الخدمة وربطه بالمستخدم
              Provider::create([
                 'name' => $providerData['name'],
-                'description' => $providerData['description'],
+                'title' => $providerData['title'],
                 'user_id' => $user->id, // ربط المزود بالمستخدم
                 'location' => $providerData['location'],
+                'province_id' => $providerData['province_id'],
             ])->categories()->attach($providerData['category_id']);
 
         }

@@ -28,10 +28,12 @@ class AuthController extends Controller
             'gender' => 'required_if:type,tourist|nullable|in:M,F', 
             'country_id' => 'required_if:type,tourist|integer|exists:countries,id',
             
+            'title' => 'required_if:type,provider|max:100',
             'description' => 'required_if:type,provider|max:500',
             'categories' => 'required_if:type,provider|array',
             'categories.*' => 'required_if:type,provider|exists:categories,id',
             'image_id' => 'required_if:type,provider|file|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'province_id' => 'required_if:type,provider|exists:provinces,id',
             'latitude' => 'required_if:type,provider|numeric',
             'longitude' => 'required_if:type,provider|numeric',
         ]);        
@@ -61,9 +63,11 @@ class AuthController extends Controller
         } else if ($type == 'provider') {            
             $provider = [
                 'name' => $request->name,
+                'title' => $request->title,
                 'description' => $request->description,
 
                 'image_id' =>  saveImg('provider', $request->file('image_id')),                
+                'province_id' => $request->province_id,
                 'location' => DB::raw("POINT({$request->longitude}, {$request->latitude})"),                
             ];
                         

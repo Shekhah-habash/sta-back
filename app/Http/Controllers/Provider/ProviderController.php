@@ -14,7 +14,7 @@ class ProviderController extends Controller
      */
     public function getInfo(Request $request)
     {
-        
+
         $provider = $request->user()->provider()->with('image')->selectRaw("
             name,
             description, 
@@ -24,54 +24,6 @@ class ProviderController extends Controller
             ST_X(location) AS lat")->first();
 
         // return $provider;
-        return apiSuccess("معلومات المزود" , new ProviderResource( $provider));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Provider $provider)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Provider $provider)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Provider $provider)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Provider $provider)
-    {
-        //
+        return apiSuccess("معلومات المزود", new ProviderResource($provider));
     }
 }
