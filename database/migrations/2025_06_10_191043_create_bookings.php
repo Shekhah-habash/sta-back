@@ -17,12 +17,9 @@ return new class extends Migration
             $table->timestamp('end_date')->nullable();
             $table->integer('quantity' )->default(1);            
             $table->decimal('price', 10, 2);
-            
-            $table->json('booking_details')->nullable();
-            $table->json('booking_response')->nullable();
+                        
             $table->string('note' , 1000)->nullable();
             
-
             $table->enum('status', [ 'accepted' , 'canceled' ])->default('accepted');
             
             $table->enum('evaluate', [1, 2, 3, 4, 5])->nullable();

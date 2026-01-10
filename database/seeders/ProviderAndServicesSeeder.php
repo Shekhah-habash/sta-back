@@ -9,11 +9,11 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ProviderSeeder extends Seeder
+class ProviderAndServicesSeeder extends Seeder
 {
     public function run()
     {
-                
+
         $categories = Category::all();
 
         $providers = [
@@ -21,7 +21,7 @@ class ProviderSeeder extends Seeder
                 'name' => 'الرونق للرحلات',
                 'title' => ' أجمل الرحلات إلى الأماكن والمعالم الأثرية',
                 'email' => 'ahmed@example.com',
-                'category_id' => $categories->where('name', 'معالم أثرية')->first()->id, 
+                'category_id' => $categories->where('name', 'معالم أثرية')->first()->id,
                 'location' => DB::raw("POINT(33.5138, 36.2765)"), // حلب
                 'province_id' => 2,
             ],
@@ -29,7 +29,7 @@ class ProviderSeeder extends Seeder
                 'name' => 'مطعم دمشق',
                 'title' => 'أطيب وأشهى المأكولات الشرقية',
                 'email' => 'sara@example.com',
-                'category_id' => $categories->where('name', 'مطاعم')->first()->id, 
+                'category_id' => $categories->where('name', 'مطاعم')->first()->id,
                 'location' => DB::raw("POINT(37.1612, 33.1613)"), // دمشق
                 'province_id' => 1,
             ],
@@ -37,7 +37,7 @@ class ProviderSeeder extends Seeder
                 'name' => 'مركز الشفاء',
                 'title' => 'أسعار اقتصادية، جودة عالية أحدث الأجهزة مع أفضل الخبراء ',
                 'email' => 'mohamed@example.com',
-                'category_id' => $categories->where('name', 'خدمات علاجية')->first()->id, 
+                'category_id' => $categories->where('name', 'خدمات علاجية')->first()->id,
                 'location' => DB::raw("POINT(37.1343, 36.2021)"), // حمص
                 'province_id' => 14,
             ],
@@ -45,7 +45,7 @@ class ProviderSeeder extends Seeder
                 'name' => 'الرونق للتجميل',
                 'title' => 'وصفات عربية لجمال دائم',
                 'email' => 'ali@example.com',
-                'category_id' => $categories->where('name', 'تجميل')->first()->id, 
+                'category_id' => $categories->where('name', 'تجميل')->first()->id,
                 'location' => DB::raw("POINT(36.6341, 35.9294)"), // إدلب
                 'province_id' => 9,
             ],
@@ -53,7 +53,7 @@ class ProviderSeeder extends Seeder
                 'name' => 'عيادة الحياة الجديدة',
                 'title' => 'عيادة الحياة الجديدة - خطواتك نحو الأمومة.',
                 'email' => 'fatima@example.com',
-                'category_id' => $categories->where('name', 'علاج العقم')->first()->id, 
+                'category_id' => $categories->where('name', 'علاج العقم')->first()->id,
                 'location' => DB::raw("POINT(36.7256, 35.7644)"), // دير الزور
                 'province_id' => 13,
             ],
@@ -61,7 +61,7 @@ class ProviderSeeder extends Seeder
                 'name' => 'يوسف العبد الله',
                 'title' => 'افخر السيارات ',
                 'email' => 'youssef@example.com',
-                'category_id' => $categories->where('name', 'خدمات النقل')->first()->id, 
+                'category_id' => $categories->where('name', 'خدمات النقل')->first()->id,
                 'location' => DB::raw("POINT(37.2915, 36.0937)"), // الرقة
                 'province_id' => 12,
             ],
@@ -69,7 +69,7 @@ class ProviderSeeder extends Seeder
                 'name' => 'مول الأثريات العريقة',
                 'title' => 'حي التراث.',
                 'email' => 'aisha@example.com',
-                'category_id' => $categories->where('name', 'تسوق')->first()->id, 
+                'category_id' => $categories->where('name', 'تسوق')->first()->id,
                 'location' => DB::raw("POINT(37.3757, 36.2986)"), // حماة
                 'province_id' => 10,
             ],
@@ -77,7 +77,7 @@ class ProviderSeeder extends Seeder
                 'name' => 'فندق الفصول الأربعة',
                 'title' => 'في قلب دمشق الساحرة.',
                 'email' => 'p@p.com',
-                'category_id' => $categories->where('name', 'فنادق')->first()->id, 
+                'category_id' => $categories->where('name', 'فنادق')->first()->id,
                 'location' => DB::raw("POINT(36.6667, 35.8333)"), // السويداء
                 'province_id' => 5,
             ],
@@ -85,7 +85,7 @@ class ProviderSeeder extends Seeder
                 'name' => 'الذكريات',
                 'title' => 'صور تحكي قصصاً... مع مونتاج مدهش.',
                 'email' => 'hala@example.com',
-                'category_id' => $categories->where('name', 'خدمات تصوير')->first()->id, 
+                'category_id' => $categories->where('name', 'خدمات تصوير')->first()->id,
                 'location' => DB::raw("POINT(36.7500, 35.8000)"), // طرطوس
                 'province_id' => 8,
             ],
@@ -93,7 +93,7 @@ class ProviderSeeder extends Seeder
                 'name' => 'مشفى الأمل',
                 'title' => 'أحدث التقنيات والخبرات.',
                 'email' => 'karim@example.com',
-                'category_id' => $categories->where('name', 'خدمات علاجية')->first()->id, 
+                'category_id' => $categories->where('name', 'خدمات علاجية')->first()->id,
                 'location' => DB::raw("POINT(37.1000, 36.2000)"), // اللاذقية
                 'province_id' => 7,
             ],
@@ -108,14 +108,29 @@ class ProviderSeeder extends Seeder
             ]);
 
             // إنشاء مزود الخدمة وربطه بالمستخدم
-             Provider::create([
+            Provider::create([
                 'name' => $providerData['name'],
                 'title' => $providerData['title'],
                 'user_id' => $user->id, // ربط المزود بالمستخدم
                 'location' => $providerData['location'],
                 'province_id' => $providerData['province_id'],
             ])->categories()->attach($providerData['category_id']);
+        }
 
+
+        $provider = user::where('email', 'p@p.com')->first()->provider;
+
+        $categories = Category::wherein('name', ['الإقامة', 'فنادق', 'حجز فندق خمس نجوم','غرفة فردية', 'غرفة ثنائية', 'غرفة ثلاثية', 'استديو 4 أشخاص', 'استديو 7 أشخاص',])->get();
+        $provider->categories()->attach($categories);
+                        
+        $services = [
+            ['name' => 'غرفة إفرادية', 'identifier' => 'ID1', 'details' => ''],
+            ['name' => 'غرفة مزودجة', 'identifier' => 'ID2', 'details' => ''],
+            ['name' => 'استديو 4 أشخاص', 'identifier' => 'ID3', 'details' => ''],
+            ['name' => 'استديو 5 أشخاص', 'identifier' => 'ID4', 'details' => ''],
+        ];
+        foreach ($services as $service) {
+            $provider->services()->create($service);
         }
     }
 }

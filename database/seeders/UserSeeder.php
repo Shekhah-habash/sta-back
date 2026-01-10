@@ -2,8 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Provider;
-use App\Models\Tourist;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,6 +17,7 @@ class UserSeeder extends Seeder
     // $table->rememberToken();
     public function run(): void
     {
+        /** admin */
         User::create(
             [
                 'id' => 1,
@@ -28,38 +28,23 @@ class UserSeeder extends Seeder
             ]
         );
 
-        /** tourist 1 */
+        /** user + tourist   */
         User::create([
-            'id' => 2,
             'email' => 't@t.com',
             'password' => '123',
-            'type' => 'tourist'
-        ]);
-        Tourist::create([
-            'id' => 1,
-            'name' => 'tourist account 1',
-            'country_id' => 200,
+            'type' => 'tourist',
+        ])->tourist()->create([
+            'name' => 'حنان',
             'DOB' => '2000-01-01',
             'gender' => 'F',
-            'user_id' => 2
+            'country_id' => 200,
         ]);
 
-
-        /** tourist 2 */
-        User::create([
-            'id' => 3,
-            'email' => 'to@to.com',
-            'password' => '123',
-            'type' => 'tourist',
-        ]);
-        Tourist::create([
-            'id' => 2,
-            'name' => 'tourist account 2',
-            'country_id' => 100,
-            'DOB' => '2000-01-01',
-            'gender' => 'M',
-            'user_id' => 3
-        ]);
+        $categories = Category::wherein('name', ['الإقامة', 'فنادق', 'حجز فندق خمس نجوم','غرفة فردية', 'غرفة ثنائية', 'غرفة ثلاثية', 'استديو 4 أشخاص', 'استديو 7 أشخاص',])->get();
         
+        $tourist = user::where('email', 't@t.com')->first()->tourist;
+        foreach ($categories as $category) {
+            $tourist->categories()->attach($category);
+        }
     }
 }

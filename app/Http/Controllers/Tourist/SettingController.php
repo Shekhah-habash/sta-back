@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Tourist;
 
 use App\Http\Controllers\Controller;
-use App\Models\Country;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class SettingController extends Controller

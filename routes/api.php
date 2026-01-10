@@ -9,6 +9,7 @@ use App\Http\Controllers\provider\NotificationController;
 use App\Http\Controllers\Provider\ProviderController;
 use App\Http\Controllers\Provider\ServiceController;
 use App\Http\Controllers\Tourist\SettingController;
+use App\Http\Controllers\Tourist\TouristController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
@@ -50,10 +51,13 @@ Route::middleware(['auth:sanctum', 'user-type:provider'])->prefix('provider')->g
     Route::get('/notifications', [NotificationController::class , 'index']);
     Route::get('/notifications/unread-count', [NotificationController::class , 'unreadCount']);
     Route::patch('/notifications/mark-as-read', [NotificationController::class , 'markAsRead']);
-
-
 });
 
+Route::middleware(['auth:sanctum', 'user-type:tourist'])->prefix('tourist')->group(function () {
+    Route::get('/profile', [TouristController::class, 'getProfile']);
+    Route::post('/profile', [TouristController::class, 'updateProfile']);
+
+});
 
 Route::fallback(function () {
     return apiError("path is incorrect", [

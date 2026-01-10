@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();            
-            $table->foreignId('preference_id')->constrained()->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->foreignId('tourist_id')->constrained()->onDelete('cascade');
-            $table->enum('type' , ['normal' , 'health'])->default('normal');
             $table->timestamps();
         });
     }
