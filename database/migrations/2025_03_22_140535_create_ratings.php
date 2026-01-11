@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->enum('rate' , [1 , 2, 3 ,4 ,5 ]);   
 
-            $table->foreignId('provider_id')->constrained();
+            $table->foreignId('service_id')->constrained();
             $table->foreignId('tourist_id')->constrained();
             $table->timestamps();
         });

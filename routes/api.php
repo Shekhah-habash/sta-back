@@ -56,6 +56,9 @@ Route::middleware(['auth:sanctum', 'user-type:provider'])->prefix('provider')->g
 Route::middleware(['auth:sanctum', 'user-type:tourist'])->prefix('tourist')->group(function () {
     Route::get('/profile', [TouristController::class, 'getProfile']);
     Route::post('/profile', [TouristController::class, 'updateProfile']);
+    Route::post('/booking', [TouristController::class, 'booking']);
+    Route::post('/rate', [TouristController::class, 'rate']);
+    Route::post('/comment', [TouristController::class, 'comment']);
 
 });
 

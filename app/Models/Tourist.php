@@ -21,8 +21,21 @@ class Tourist extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
     public function categories()
     {
         return $this->belongsToMany(Category::class , 'profiles');
+    }
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class );
+    }
+    public function services()
+    {
+        return $this->belongsToMany(Service::class  , 'ratings')->withPivot('rate');
+    }
+    public function comments()
+    {
+        return $this->belongsToMany(Service::class  , 'comments')->withPivot(['comment' , 'type']);;
     }
 }

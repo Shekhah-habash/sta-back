@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->string('comment', 200)->nullable();
-            $table->enum('type', ['positive' ,'negative' , 'neutral' ]);
+            $table->enum('type', ['positive' ,'negative'  ]);
 
             $table->foreignId('service_id')->constrained();
             $table->foreignId('tourist_id')->constrained();
