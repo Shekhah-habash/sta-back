@@ -43,7 +43,10 @@ Route::middleware(['auth:sanctum', 'user-type:admin'])->prefix('admin')->group(f
 });
 
 Route::middleware(['auth:sanctum', 'user-type:provider'])->prefix('provider')->group(function () {
-    Route::get('/getInfo', [ProviderController::class , 'getInfo']);
+    Route::get('/categories', [ProviderController::class, 'getCategories']);
+    Route::post('/categories', [ProviderController::class, 'updateCategories']);Route::get('/getInfo', [ProviderController::class , 'getInfo']);
+    Route::get('/comments', [ProviderController::class , 'comments']);
+    Route::get('/ratings', [ProviderController::class , 'ratings']);
     
     Route::apiResource('/services', ServiceController::class);
     

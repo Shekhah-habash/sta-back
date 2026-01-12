@@ -37,5 +37,6 @@ class BookingAndCommentAndRattingSeeder extends Seeder
 
         Tourist::find($tourist_id)->ratings()->attach(2, ['rate' => 4]);
         Tourist::find($tourist_id)->comments()->attach(2, ['comment' => 'حلوة ومفيدة', 'type' => 'positive']);
+        Tourist::find($tourist_id)->comments()->attach(2, ['comment' => 'متعبة ومضغوطة', 'type' => 'negative']);
     }
 }

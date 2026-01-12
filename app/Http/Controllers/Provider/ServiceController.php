@@ -13,10 +13,10 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::all();
+        $services = Service::withAvg('ratings as avg_rating', 'ratings.rate')->get();
+
 
         return apiSuccess('إدارة الخدمات', $services);
-
     }
 
     
