@@ -29,7 +29,6 @@ Route::controller(AuthController::class)->group(function () {
 Route::get('/countries', [SettingController::class, 'countries']);
 Route::get('/provinces', [SettingController::class, 'provinces']);
 Route::get('categories/tree', [CategoryController::class, 'tree']);
-
 Route::get('/categories', [CategoryController::class , 'index']);
 Route::get('/categories/top-level', [CategoryController::class , 'topLevel']);
 
@@ -51,11 +50,15 @@ Route::middleware(['auth:sanctum', 'user-type:provider'])->prefix('provider')->g
     Route::get('/notifications', [NotificationController::class , 'index']);
     Route::get('/notifications/unread-count', [NotificationController::class , 'unreadCount']);
     Route::patch('/notifications/mark-as-read', [NotificationController::class , 'markAsRead']);
+
+
 });
 
 Route::middleware(['auth:sanctum', 'user-type:tourist'])->prefix('tourist')->group(function () {
     Route::get('/profile', [TouristController::class, 'getProfile']);
     Route::post('/profile', [TouristController::class, 'updateProfile']);
+    Route::get('/matchProvider', [TouristController::class, 'matchProvider']);
+    Route::get('/tourHistory', [TouristController::class, 'tourHistory']);
     Route::post('/booking', [TouristController::class, 'booking']);
     Route::post('/rate', [TouristController::class, 'rate']);
     Route::post('/comment', [TouristController::class, 'comment']);

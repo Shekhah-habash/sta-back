@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Booking;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,14 +14,13 @@ class DatabaseSeeder extends Seeder
      * Seed the application's database.
      */
     public function run(): void
-    {
-        
+    {        
         $this->call(ProvinceSeeder::class);
         $this->call(CountrySeeder::class);
         $this->call(CategorySeeder::class);
         $this->call(UserSeeder::class);
         $this->call(ProviderAndServicesSeeder::class);
+        $this->call(BookingAndCommentAndRattingSeeder::class);
 
-        // $this->call([CategoriesAndPreferencesSeeder::class ]);
     }
 }

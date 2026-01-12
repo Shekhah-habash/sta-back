@@ -34,17 +34,14 @@ class UserSeeder extends Seeder
             'password' => '123',
             'type' => 'tourist',
         ])->tourist()->create([
-            'name' => 'حنان',
+            'name' => 'همام',
             'DOB' => '2000-01-01',
-            'gender' => 'F',
+            'gender' => 'M',
             'country_id' => 200,
         ]);
 
-        $categories = Category::wherein('name', ['الإقامة', 'فنادق', 'حجز فندق خمس نجوم','غرفة فردية', 'غرفة ثنائية', 'غرفة ثلاثية', 'استديو 4 أشخاص', 'استديو 7 أشخاص',])->get();
-        
         $tourist = user::where('email', 't@t.com')->first()->tourist;
-        foreach ($categories as $category) {
-            $tourist->categories()->attach($category);
-        }
+        $categories = Category::wherein('name', ['الإقامة', 'فنادق', 'حجز فندق خمس نجوم', 'غرفة فردية', 'غرفة ثنائية', 'غرفة ثلاثية', 'استديو 4 أشخاص', 'استديو 7 أشخاص', 'علاج طبيعي', 'استشارة تغذية', 'معالم أثرية', 'تجربة الطعام المحلي',])->get();
+        $tourist->profiles()->attach($categories);
     }
 }

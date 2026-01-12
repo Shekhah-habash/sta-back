@@ -22,7 +22,7 @@ class Tourist extends Model
         return $this->belongsTo(User::class);
     }
     
-    public function categories()
+    public function profiles()
     {
         return $this->belongsToMany(Category::class , 'profiles');
     }
@@ -30,7 +30,7 @@ class Tourist extends Model
     {
         return $this->hasMany(Booking::class );
     }
-    public function services()
+    public function ratings()
     {
         return $this->belongsToMany(Service::class  , 'ratings')->withPivot('rate');
     }

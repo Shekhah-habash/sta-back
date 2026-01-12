@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProviderResource;
+use App\Models\Booking;
 use App\Models\Provider;
 use App\Notifications\ProviderAccountAccepted;
 use Illuminate\Http\Request;
@@ -45,8 +46,8 @@ class AdminController extends Controller
         return apiSuccess("إجماليات", [
             'categories' => \App\Models\Category::count(),
             'tourists' => \App\Models\Tourist::count(),
-            'providers' => Provider::whereAccepted(true)->count(),
-            'bookings' => 0,
+            'providers' => Provider::count(),
+            'bookings' => Booking::count(),
         ]);
     }
 }

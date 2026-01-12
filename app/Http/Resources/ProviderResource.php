@@ -15,13 +15,15 @@ class ProviderResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' =>$this->id,
+            'id' => $this->id,
             'name' => $this->name,
+            'title' => $this->title,
             'description' => $this->description,
             'accepted' => $this->accepted,
-            'lat' =>$this->lat,
-            'lng' =>$this->lng,
-            'image' => asset('storage/' . ($this->image? $this->image->name : 'images/no-image.jpg')),
+            'lat' => $this->lat,
+            'lng' => $this->lng,
+            'image' => asset('storage/' . ($this->image ? $this->image->name : 'images/no-image.jpg')),
+            'services' =>  $this->whenLoaded('services'),
         ];
     }
 }

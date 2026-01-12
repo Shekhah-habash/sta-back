@@ -33,14 +33,17 @@ class Service extends Model
     {
         return $this->hasMany(Booking::class);
     }
-
+    // public function tourists()
+    // {
+    //     return $this->belongsToMany(Tourist::class);
+    // }
+    
     public function ratings()
     {
-        return $this->hasMany(Rating::class);
+        return $this->belongsToMany(Tourist::class, 'ratings')->withPivot('rate');
     }
-
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->belongsToMany(Tourist::class  , 'comments')->withPivot(['comment' , 'type']);;
     }
 }

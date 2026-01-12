@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
             $table->integer('quantity' )->default(1);            
-            $table->decimal('price', 10, 2);
+            $table->decimal('price', 10, 2)->nullable();
                         
             $table->string('note' , 1000)->nullable();
             

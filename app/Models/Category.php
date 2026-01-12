@@ -75,4 +75,8 @@ class Category extends Model
     {
         return $this->belongsToMany(Provider::class);
     }
+    public function tourists()
+    {
+        return $this->belongsToMany(Tourist::class , 'profiles');
+    }
 }
