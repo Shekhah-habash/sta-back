@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProviderResource;
 use App\Models\Booking;
+use App\Models\Comment;
 use App\Models\Provider;
 use App\Notifications\ProviderAccountAccepted;
 use Illuminate\Http\Request;
@@ -32,6 +33,16 @@ class AdminController extends Controller
             })->get();
         //   return $providers;              
         return apiSuccess('مزودي الخدمة ',  ProviderResource::collection($providers));
+    }
+
+    public function getComplaint()
+    {
+        $complaints = Comment::where('type' , 'negative')
+        ->with( 'service:id,name,provider_id',
+                'tourist:id,name',
+                'service.provider:id,name',
+            )->get();
+        return apiSuccess('الشكاوى ',  $complaints);
     }
 
     public function acceptProvider(Provider $provider)

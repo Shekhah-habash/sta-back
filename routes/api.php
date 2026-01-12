@@ -39,6 +39,7 @@ Route::middleware(['auth:sanctum', 'user-type:admin'])->prefix('admin')->group(f
     Route::get('/providers', [AdminController::class, 'getProviders']);
     Route::patch('/accept-provider/{provider}', [AdminController::class, 'acceptProvider']);
 
+    Route::get('/complaints', [AdminController::class, 'getComplaint']);
     Route::get('/totals', [AdminController::class, 'totals']);
 });
 
